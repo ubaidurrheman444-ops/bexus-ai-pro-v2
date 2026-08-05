@@ -1,0 +1,104 @@
+// Tab Switching for Login / Signup
+function switchTab(tab) {
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const buttons = document.querySelectorAll('.tab-btn');
+
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    if (tab === 'login') {
+        loginForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+        buttons[0].classList.add('active');
+    } else {
+        loginForm.classList.add('hidden');
+        signupForm.classList.remove('hidden');
+        buttons[1].classList.add('active');
+    }
+}
+
+// Authentication Handler
+function handleAuth(event, type) {
+    event.preventDefault();
+    
+    // Simulate successful login/signup and transition to main app
+    document.getElementById('auth-container').classList.add('hidden');
+    document.getElementById('app-container').classList.remove('hidden');
+}
+
+// Logout Handler
+function handleLogout() {
+    document.getElementById('app-container').classList.add('hidden');
+    document.getElementById('auth-container').classList.remove('hidden');
+}
+
+// Chat Functionality
+function sendMessage() {
+    const inputField = document.getElementById('user-input');
+    const messageText = inputField.value.trim();
+
+    if (!messageText) return;
+
+    const chatMessages = document.getElementById('chat-messages');
+
+    // Append User Message
+    const userMsgHTML = `
+        <div class="message user-message">
+            <div class="msg-icon"><i class="fa-solid fa-circle-user"></i></div>
+            <div class="msg-content"><p>${escapeHtml(messageText)}</p></div>
+        </div>
+    `;
+    chatMessages.insertAdjacentHTML('beforeend', userMsgHTML);
+    inputField.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Simulate AI Response after a short delay
+    setTimeout(() => {
+        const aiResponses = [
+            "Neural pipeline successfully executed your command, Operator.",
+            "Analyzing parameters across secure server nodes...",
+            "System check complete. All sub-routines operating at maximum efficiency.",
+            "Processing neural weights for optimal output generation."
+        ];
+        const randomReply = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+
+        const aiMsgHTML = `
+            <div class="message ai-message">
+                <div class="msg-icon"><i class="fa-solid fa-brain-circuit"></i></div>
+                <div class="msg-content"><p>${randomReply}</p></div>
+            </div>
+        `;
+        chatMessages.insertAdjacentHTML('beforeend', aiMsgHTML);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 1000);
+}
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();
+    }
+}
+
+function startNewChat() {
+    const chatMessages = document.getElementById('chat-messages');
+    chatMessages.innerHTML = `
+        <div class="message ai-message">
+            <div class="msg-icon"><i class="fa-solid fa-brain-circuit"></i></div>
+            <div class="msg-content">
+                <p>New neural session initialized. Ready for instructions.</p>
+            </div>
+        </div>
+    `;
+}
+
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+}

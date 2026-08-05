@@ -3,61 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bexus AI - Enterprise Neural OS</title>
+    <title>Bexus AI Pro</title>
     <link rel="stylesheet" href="style.css">
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- MAIN APP DASHBOARD (Visible immediately without login) -->
-    <div id="app-container" class="app-wrapper">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-brand">
-                <i class="fa-solid fa-brain-circuit"></i>
-                <span>BEXUS AI</span>
-            </div>
-            <button class="new-chat-btn" onclick="startNewChat()">
-                <i class="fa-solid fa-plus"></i> New Neural Session
+    <!-- AUTHENTICATION SCREEN -->
+    <div id="auth-container" class="auth-wrapper">
+        <div class="auth-card">
+            <div class="auth-logo">B</div>
+            <h2>Welcome to Bexus AI Pro</h2>
+            <p>Sign in to access advanced neural systems</p>
+            <button class="auth-btn" onclick="handleLogin()">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> Initialize Session
             </button>
-            <div class="chat-history-list" id="history-list">
-                <!-- Dynamic History Will Go Here -->
+        </div>
+    </div>
+
+    <!-- MAIN APP DASHBOARD -->
+    <div id="app-container" class="app-wrapper hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <div class="brand-box">
+                    <div class="brand-logo">B</div>
+                    <span class="brand-name">Bexus AI Pro</span>
+                </div>
+                <button class="icon-btn" onclick="toggleSidebar()" title="Toggle Sidebar">
+                    <i class="fa-solid fa-panel-folds"></i>
+                </button>
             </div>
+
+            <button class="new-chat-btn" onclick="startNewChat()">
+                <i class="fa-solid fa-plus"></i> New chat
+            </button>
+
+            <div class="search-chats">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search chats" id="chat-search" oninput="filterChats()">
+            </div>
+
+            <div class="chats-category">Chats</div>
+            
+            <div class="chat-history-list" id="history-list">
+                <div class="history-item active" onclick="selectChat(this)">New chat</div>
+            </div>
+
             <div class="sidebar-footer">
-                <div class="user-profile">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <span id="display-username">Operator Ubaid</span>
+                <div class="user-profile" onclick="handleLogout()">
+                    <div class="user-avatar" id="user-initial">U</div>
+                    <div class="user-info">
+                        <span id="username-display">ubaid</span>
+                        <span class="logout-text">Click to sign out</span>
+                    </div>
                 </div>
             </div>
         </aside>
 
         <!-- Main Chat Area -->
         <main class="chat-main">
-            <header class="chat-header">
-                <h3>Neural Core v3.5</h3>
-                <div class="system-status">
-                    <span class="status-dot"></span> Autonomous Loop: Active
+            <header class="main-header">
+                <div class="model-selector-dropdown">
+                    <span>Bexus AI Pro</span>
+                    <i class="fa-solid fa-chevron-down"></i>
                 </div>
             </header>
 
-            <div class="chat-messages" id="chat-messages">
-                <div class="message ai-message">
-                    <div class="msg-icon"><i class="fa-solid fa-brain-circuit"></i></div>
-                    <div class="msg-content">
-                        <p>Greetings, Operator. Bexus AI neural network initialized. How can I assist your workflow today?</p>
-                    </div>
+            <div class="chat-messages-container" id="chat-messages">
+                <!-- Empty State or Welcome Message -->
+                <div class="welcome-screen" id="welcome-screen">
+                    <h1>What can I help with today?</h1>
                 </div>
             </div>
 
-            <div class="chat-input-area">
-                <div class="input-box-wrapper">
-                    <textarea id="user-input" placeholder="Transmit command to Bexus AI..." rows="1" onkeydown="handleKeyPress(event)"></textarea>
-                    <button class="send-btn" onclick="sendMessage()">
-                        <i class="fa-solid fa-paper-plane"></i>
+            <div class="chat-input-section">
+                <div class="input-container">
+                    <div class="input-actions-left">
+                        <button class="tool-btn" title="Attach file"><i class="fa-solid fa-plus"></i></button>
+                        <button class="tool-btn web-search-btn" onclick="toggleWebSearch()"><i class="fa-solid fa-globe"></i> Web search</button>
+                    </div>
+                    <textarea id="user-input" placeholder="Message Bexus AI Pro..." rows="1" oninput="autoResize(this)" onkeydown="handleKeyPress(event)"></textarea>
+                    <button class="send-btn" id="send-btn" onclick="sendMessage()" disabled>
+                        <i class="fa-solid fa-arrow-up"></i>
                     </button>
                 </div>
-                <div class="disclaimer">Bexus AI can make errors. Verify critical system parameters.</div>
+                <div class="disclaimer-footer">
+                    Bexus AI Pro can make mistakes. Consider checking important information.
+                </div>
             </div>
         </main>
     </div>

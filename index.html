@@ -177,7 +177,7 @@
             color: var(--text-muted);
         }
 
-        /* Perfect Message Alignment */
+        /* Message Alignment */
         .message-row {
             width: 100%;
             display: flex;
@@ -383,7 +383,7 @@
             const welcome = document.getElementById('welcome-box');
             if(welcome) welcome.remove();
 
-            // Append User Message (Right Side)
+            // 1. User Message Add Karein
             messages.insertAdjacentHTML('beforeend', `
                 <div class="message-row user">
                     <div class="message-bubble">${escapeHtml(text)}</div>
@@ -395,17 +395,30 @@
             sendBtn.setAttribute('disabled', 'true');
             messages.scrollTop = messages.scrollHeight;
 
-            // Append AI Response Simulation (Left Side)
+            // 2. AI Response Typewriter Effect ke sath
             setTimeout(() => {
+                const aiRowId = 'ai-msg-' + Date.now();
                 messages.insertAdjacentHTML('beforeend', `
                     <div class="message-row ai">
-                        <div class="message-bubble">
-                            I am processing your query: "${escapeHtml(text)}". Systems are fully operational and aligned with your request.
-                        </div>
+                        <div class="message-bubble" id="${aiRowId}"></div>
                     </div>
                 `);
-                messages.scrollTop = messages.scrollHeight;
-            }, 800);
+
+                const bubble = document.getElementById(aiRowId);
+                const responseText = `Bexus AI Neural Core: Main aapke query "${text}" ko process kar raha hoon. Systems bilkul ready hain!`;
+                
+                let i = 0;
+                function typeWriter() {
+                    if (i < responseText.length) {
+                        bubble.innerHTML += responseText.charAt(i);
+                        i++;
+                        messages.scrollTop = messages.scrollHeight;
+                        setTimeout(typeWriter, 15); // Typing speed
+                    }
+                }
+                typeWriter();
+
+            }, 500);
         }
 
         function startNewChat() {

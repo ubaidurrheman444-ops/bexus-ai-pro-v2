@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bexus-ai-pro.vercel.app/sitemap.xml

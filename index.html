@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bexus AI - Enterprise Neural OS</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- AUTHENTICATION SCREEN -->
+    <div id="auth-container" class="auth-wrapper">
+        <div class="auth-card">
+            <div class="auth-header">
+                <i class="fa-solid fa-brain-circuit glow-icon"></i>
+                <h2>BEXUS AI</h2>
+                <p>Enterprise Neural Operating System</p>
+            </div>
+            
+            <div class="tab-switcher">
+                <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+                <button class="tab-btn" onclick="switchTab('signup')">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form" onsubmit="handleAuth(event, 'login')">
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" placeholder="Neural ID (Email)" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" placeholder="Access Key (Password)" required>
+                </div>
+                <button type="submit" class="primary-btn">Initialize Connection</button>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signup-form" class="auth-form hidden" onsubmit="handleAuth(event, 'signup')">
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" placeholder="Operator Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" placeholder="Neural ID (Email)" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" placeholder="Create Access Key" required>
+                </div>
+                <button type="submit" class="primary-btn">Register Node</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN APP DASHBOARD (Hidden by default) -->
+    <div id="app-container" class="app-wrapper hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-brain-circuit"></i>
+                <span>BEXUS AI</span>
+            </div>
+            <button class="new-chat-btn" onclick="startNewChat()">
+                <i class="fa-solid fa-plus"></i> New Neural Session
+            </button>
+            <div class="chat-history-list" id="history-list">
+                <!-- Dynamic History Will Go Here -->
+            </div>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span id="display-username">Operator</span>
+                </div>
+                <button class="logout-btn" onclick="handleLogout()" title="Disconnect">
+                    <i class="fa-solid fa-power-off"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main">
+            <header class="chat-header">
+                <h3>Neural Core v3.5</h3>
+                <div class="system-status">
+                    <span class="status-dot"></span> Autonomous Loop: Active
+                </div>
+            </header>
+
+            <div class="chat-messages" id="chat-messages">
+                <div class="message ai-message">
+                    <div class="msg-icon"><i class="fa-solid fa-brain-circuit"></i></div>
+                    <div class="msg-content">
+                        <p>Greetings, Operator. Bexus AI neural network initialized. How can I assist your workflow today?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <div class="input-box-wrapper">
+                    <textarea id="user-input" placeholder="Transmit command to Bexus AI..." rows="1" onkeydown="handleKeyPress(event)"></textarea>
+                    <button class="send-btn" onclick="sendMessage()">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="disclaimer">Bexus AI can make errors. Verify critical system parameters.</div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

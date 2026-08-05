@@ -44,6 +44,7 @@
             display: flex;
             flex-direction: column;
             padding: 14px;
+            flex-shrink: 0;
         }
 
         .brand {
@@ -140,6 +141,8 @@
             flex-direction: column;
             background: var(--bg-deep);
             position: relative;
+            height: 100vh;
+            overflow: hidden;
         }
 
         .chat-header {
@@ -150,6 +153,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: var(--bg-deep);
         }
 
         .chat-messages {
@@ -158,7 +162,7 @@
             padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
             scroll-behavior: smooth;
         }
 
@@ -173,42 +177,42 @@
             color: var(--text-muted);
         }
 
-        /* Message Bubbles Layout */
-        .message {
-            max-width: 750px;
+        /* Perfect Message Alignment */
+        .message-row {
             width: 100%;
-            margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            font-size: 14px;
-            line-height: 1.6;
         }
 
-        .message.user {
+        .message-row.user {
             align-items: flex-end;
         }
 
-        .message.ai {
+        .message-row.ai {
             align-items: flex-start;
         }
 
-        .message-content {
+        .message-bubble {
+            max-width: 75%;
             padding: 12px 16px;
             border-radius: 12px;
-            max-width: 85%;
+            font-size: 14px;
+            line-height: 1.6;
+            word-break: break-word;
         }
 
-        .message.user .message-content {
+        .message-row.user .message-bubble {
             background: var(--bg-card);
             color: #fff;
             border-top-right-radius: 2px;
+            border: 1px solid var(--border);
         }
 
-        .message.ai .message-content {
-            background: transparent;
+        .message-row.ai .message-bubble {
+            background: var(--bg-panel);
             color: var(--text-main);
-            padding: 0;
+            border-top-left-radius: 2px;
+            border: 1px solid var(--border);
         }
 
         /* Input Area */
@@ -217,7 +221,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: linear-gradient(180deg, transparent, var(--bg-deep) 30%);
+            background: var(--bg-deep);
+            border-top: 1px solid var(--border);
         }
 
         .input-box {
@@ -378,10 +383,10 @@
             const welcome = document.getElementById('welcome-box');
             if(welcome) welcome.remove();
 
-            // Append User Message
+            // Append User Message (Right Side)
             messages.insertAdjacentHTML('beforeend', `
-                <div class="message user">
-                    <div class="message-content">${escapeHtml(text)}</div>
+                <div class="message-row user">
+                    <div class="message-bubble">${escapeHtml(text)}</div>
                 </div>
             `);
 
@@ -390,12 +395,12 @@
             sendBtn.setAttribute('disabled', 'true');
             messages.scrollTop = messages.scrollHeight;
 
-            // Append AI Response Simulation
+            // Append AI Response Simulation (Left Side)
             setTimeout(() => {
                 messages.insertAdjacentHTML('beforeend', `
-                    <div class="message ai">
-                        <div class="message-content">
-                            <p>I am processing your query: "${escapeHtml(text)}". Systems are fully operational and aligned with your request.</p>
+                    <div class="message-row ai">
+                        <div class="message-bubble">
+                            I am processing your query: "${escapeHtml(text)}". Systems are fully operational and aligned with your request.
                         </div>
                     </div>
                 `);

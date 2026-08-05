@@ -10,54 +10,8 @@
 </head>
 <body>
 
-    <!-- AUTHENTICATION SCREEN -->
-    <div id="auth-container" class="auth-wrapper">
-        <div class="auth-card">
-            <div class="auth-header">
-                <i class="fa-solid fa-brain-circuit glow-icon"></i>
-                <h2>BEXUS AI</h2>
-                <p>Enterprise Neural Operating System</p>
-            </div>
-            
-            <div class="tab-switcher">
-                <button class="tab-btn active" onclick="switchTab('login')">Login</button>
-                <button class="tab-btn" onclick="switchTab('signup')">Sign Up</button>
-            </div>
-
-            <!-- Login Form -->
-            <form id="login-form" class="auth-form" onsubmit="handleAuth(event, 'login')">
-                <div class="input-group">
-                    <i class="fa-solid fa-envelope"></i>
-                    <input type="email" placeholder="Neural ID (Email)" required>
-                </div>
-                <div class="input-group">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" placeholder="Access Key (Password)" required>
-                </div>
-                <button type="submit" class="primary-btn">Initialize Connection</button>
-            </form>
-
-            <!-- Signup Form -->
-            <form id="signup-form" class="auth-form hidden" onsubmit="handleAuth(event, 'signup')">
-                <div class="input-group">
-                    <i class="fa-solid fa-user"></i>
-                    <input type="text" placeholder="Operator Name" required>
-                </div>
-                <div class="input-group">
-                    <i class="fa-solid fa-envelope"></i>
-                    <input type="email" placeholder="Neural ID (Email)" required>
-                </div>
-                <div class="input-group">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" placeholder="Create Access Key" required>
-                </div>
-                <button type="submit" class="primary-btn">Register Node</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MAIN APP DASHBOARD (Hidden by default) -->
-    <div id="app-container" class="app-wrapper hidden">
+    <!-- MAIN APP DASHBOARD (Visible immediately without login) -->
+    <div id="app-container" class="app-wrapper">
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-brand">
@@ -73,11 +27,8 @@
             <div class="sidebar-footer">
                 <div class="user-profile">
                     <i class="fa-solid fa-circle-user"></i>
-                    <span id="display-username">Operator</span>
+                    <span id="display-username">Operator Ubaid</span>
                 </div>
-                <button class="logout-btn" onclick="handleLogout()" title="Disconnect">
-                    <i class="fa-solid fa-power-off"></i>
-                </button>
             </div>
         </aside>
 
